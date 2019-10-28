@@ -1,1 +1,1 @@
-# design_pattern
+# Design Pattern Term Project 2019
