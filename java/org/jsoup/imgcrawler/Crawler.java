@@ -18,63 +18,93 @@ import org.jsoup.select.Elements;
 import org.jsoup.urllist.UrlList;
 
 public abstract class Crawler {
+	private final int DEFAULT_TOT_CRAWL_CNT = 100;
+	private final String DEFAULT_SAVE_DIR = "./img/";
 	UrlList urls;
 	Iterator urlIterator;
 	String save_directory;
-	int pages, toCrawl;
+	int tot_imgCnt, crnt_imgCnt;
+//	int pages, toCrawl;
 	String prefix;
 	
-	public Crawler(int num) {
-		// TODO Auto-generated constructor stub
-		pages = 0;
-		toCrawl = num;
-		save_directory = "./img/";
+	public Crawler() {
+		crnt_imgCnt = 0;
+		tot_imgCnt = DEFAULT_TOT_CRAWL_CNT;
+		save_directory = DEFAULT_SAVE_DIR;
 		prefix = "";
 	}
 	
-	public void run() throws IOException {
-		RUNOUT :
-			while(pages < toCrawl) {
-				 urlIterator = urls.createIterator();
+	public void imgCrawling(String search_word) throws IOException { 
+		this.urls.setSearchWord(search_word);
+		this.prefix = search_word;
+		while(crnt_imgCnt < tot_imgCnt) {
+			 urlIterator = urls.createIterator();
+			
+			while(urlIterator.hasNext()) {
+				Elements images = getImages();
+				Validate.noNullElements(images, "There is no searched image");
 				
-				while(urlIterator.hasNext()) {
-					Elements img = getElements();
-					Validate.noNullElements(img, "There is no searched image");
+				for(Element image : images) {
+					if(crnt_imgCnt >= tot_imgCnt)
+						break;
 					
-					for(Element e : img) {
-						if(pages >= toCrawl)
-							break;
-						
-						String url = decodeUrl(e);
-						try {
-				        saveImg(new URL(url));
-						}
-						catch (FileNotFoundException f){
-							break RUNOUT;
-						}
-				        System.out.println("###############");
-					}
+					String url = decodeUrl(image);
+//					try {
+			        saveImg(new URL(url));
+//					}
+//					catch (FileNotFoundException f){
+//						// do something
+//					}
+			        System.out.println("###############");
 				}
-				urls.refill();		
 			}
+			urls.refill();		
+		}
 	}
 	
-	public abstract Elements getElements() throws IOException;
+	public void imgCrawling(String search_word, int imgCnt) throws IOException {
+		this.tot_imgCnt = imgCnt;
+		imgCrawling(search_word);
+	}
+	
+	public void imgCrawling(String search_word, int imgCnt, String save_dir) throws IOException {
+		setDirectory(save_dir);
+		imgCrawling(search_word, imgCnt);
+	}
+	
+	public abstract Elements getImages() throws IOException;
 	public abstract String decodeUrl(Element e);
-	public void saveImg(URL imgUrl) throws FileNotFoundException {
+	public void saveImg(URL imgUrl) {
+
+		BufferedImage jpg = null;
 		try {
-			BufferedImage jpg = ImageIO.read(imgUrl);
-	        File file = new File(save_directory + prefix + "_" + pages + ".jpg");
-	        ImageIO.write(jpg, "jpg", file);
-	        System.out.println( urls.getSearchWord() + " " + prefix + "_" + pages + " Crawled!!");
-	        pages += 1;
-		} catch (NullPointerException n) {
-			System.out.println("saveImg n");
+			jpg = ImageIO.read(imgUrl);
+		} catch (javax.imageio.IIOException e){
+			System.out.println("imageIO");
 			return;
-		} catch (IOException i) {
-			System.out.println("saveImg i");
-			return;
+		} catch (IOException e1) {
+		      // TODO Auto-generated catch block
+		      e1.printStackTrace();
 		}
+		System.out.println("Save Dir : "+save_directory);
+		File folder = new File(save_directory);
+		
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		
+		File file = new File(save_directory + prefix + "_" + crnt_imgCnt + ".jpg");
+		try {
+			ImageIO.write(jpg, "jpg", file);
+		} catch(java.lang.IllegalArgumentException e1) {
+	         System.out.println("illegal");
+	         return;
+		}catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+        System.out.println( urls.getSearchWord() + " " + prefix + "_" + crnt_imgCnt + " Crawled!!");
+        crnt_imgCnt += 1;
 	}
 	
 	public void setDirectory(String dir) { 

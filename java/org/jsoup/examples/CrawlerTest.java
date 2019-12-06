@@ -9,9 +9,11 @@ import org.jsoup.imgcrawler.CrawlerFactory;
 public class CrawlerTest {
 	public static void main(String[] args) throws IOException {
 		CrawlerFactory cf = new CrawlerFactory();
-		Crawler c2 = cf.createCrawler("bing", "cat", 10);
-		c2.setPrefix("Cat");
-		c2.setDirectory("../../../../../../../../../img/");
-		c2.run();
+
+//		Crawler bingImgCrawler = cf.createCrawler("bing");
+//		bingImgCrawler.imgCrawling("cat",1000,"./img/cat/");
+		
+		Crawler naverImgCrawler = cf.createCrawler("naver");
+		naverImgCrawler.imgCrawling("°­¾ÆÁö",1000,"./img/dog/");
 	}
 }

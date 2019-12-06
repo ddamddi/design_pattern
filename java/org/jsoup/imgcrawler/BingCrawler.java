@@ -20,20 +20,14 @@ import org.jsoup.urllist.UrlList;
 
 public class BingCrawler extends Crawler {
 	
-	public BingCrawler (String search_word, int num) {
-		// TODO Auto-generated constructor stub
-		super(num);
-		urls = new BingUrlList(search_word, num);	
+	public BingCrawler () {
+		super();
+		urls = new BingUrlList(tot_imgCnt);
 	}
 	
-	public BingCrawler(String search_word, int num, String save_dir) {
-		// TODO Auto-generated constructor stub
-		this(search_word, num);
-		setDirectory(save_dir);
-	}
 
 	@Override
-	public Elements getElements() throws IOException {
+	public Elements getImages() throws IOException {
 		// TODO Auto-generated method stub
 		Document doc = Jsoup.connect(urlIterator.next().toString()).get();
 		return doc.select("img");

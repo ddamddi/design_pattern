@@ -5,15 +5,15 @@ import java.net.URL;
 
 public class BingUrlList extends UrlList {
 
-	public BingUrlList(String search_word, int num) {
-		super(search_word, num);
+	public BingUrlList(int tot_imgCnt) {
+		super(tot_imgCnt);
 	}
 
 	public void addUrl(){
 		URL tmp = null;
 		try {
-			tmp = new URL("https://www.bing.com/images/async?q=" + getSearchWord() + "&first="+ page + "&count=200&mmasync=1");
-			page += 200;
+			tmp = new URL("https://www.bing.com/images/async?q=" + getSearchWord() + "&first="+ crnt_imgCnt + "&count=200&mmasync=1");
+			crnt_imgCnt += DEFAULT_URL_IMG_CNT;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

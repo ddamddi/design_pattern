@@ -8,12 +8,12 @@ public class CrawlerFactory {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Crawler createCrawler(String name, String search_word, int num) {
+	public Crawler createCrawler(String type) {
 		Crawler crawler;
 		
-		switch (name.toLowerCase()) {
-		case "naver" : crawler = new NaverCrawler(search_word, num); break;
-		case "bing"  : crawler = new BingCrawler(search_word, num); break;
+		switch (type.toLowerCase()) {
+		case "naver" : crawler = new NaverCrawler(); break;
+		case "bing"  : crawler = new BingCrawler(); break;
 		default 	 : crawler = null;
 		}
 		Validate.notNull(crawler);
