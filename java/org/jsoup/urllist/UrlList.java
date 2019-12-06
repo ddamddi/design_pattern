@@ -15,7 +15,7 @@ public abstract class UrlList {
 		this.search_word = search_word;
 		urls = new ArrayList<URL>();
 		page = 0;
-		
+			
 		int num_urls = (num / 200) * 2;
 		for(int i = 0; i < num_urls; i++)
 			addUrl();

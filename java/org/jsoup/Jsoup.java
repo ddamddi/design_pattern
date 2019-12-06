@@ -250,16 +250,4 @@ public class Jsoup {
         return new Cleaner(whitelist).isValidBodyHtml(bodyHtml);
     }
     
-    public static Document jsoup(String url) {
-    	try {
-			return Jsoup.connect(url).get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-    }
-    
-    public static Document jsoup(URL url) {
-    	return jsoup(url.toString());
-    }
 }
