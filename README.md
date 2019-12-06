@@ -33,3 +33,24 @@ for (Element headline : newsHeadlines) {
    3) TreeBuilder 클래스를 상속하는 클래스 HtmlTreeBuilder, XmlTreeBuilder 가 strategy pattern 을 가지고 있음을 확인.
    4) doc.select("#mp-itn b a")를 통해 #mp-itn b a 태그를 가지고 있는 element 리턴
    5) Elements newsHeadlines의 각 element headline의 attribute인 title과 href 출력함을 확인.
+
+
+## 11/22(금)
+1) JSoup 조사 및 분석_(2)
+Strategy 패턴 및 Factory Method 패턴 발견 및 문서화
+2) 주제 선정 : Jsoup 을 활용한 키워드 기반 이미지 크롤러 기능 확장
+
+## 11/29(금)
+1) Jsoup 조사 및 분석_(3)
+Visitor 패턴 발견 및 문서화
+2) 확장 기능 구현에 적용할 패턴 선정 및 문서화
+
+## 12/3(화)
+1) Exception Handling
+2) 확장 기능 구현 및 Testing 진행
+3) 진행 내용 문서화
+
+## 12/6(금)
+1) Exception Handling
+2) Testing 진행 및 문서화
+3) 전체 Code refactoring 및 문서화 마무리
