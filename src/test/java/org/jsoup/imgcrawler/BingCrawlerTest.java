@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
-public class BingCrawlerTestTest {
+public class BingCrawlerTest {
 	private String reference = "<img class=\"mimg\" style=\"background-color:#43760a;color:#43760a\" height=\"178\" width=\"285\" src=\"https://tse1.mm.bing.net/th?id=OIP.tIo2QDvahsvcOH-CzOgUeQHaEt&amp;w=285&amp;h=178&amp;c=7&amp;o=5&amp;pid=1.7\" alt=\"dog에 대한 이미지 결과\">";
 	
 	@Test
